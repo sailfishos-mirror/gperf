@@ -1,3 +1,18 @@
+2026-02-17  Bruno Haible  <bruno@clisp.org>
+
+	doc: Use a version of texi2html which is under a good license.
+	* doc/texi2html: Copied from texi2html-1.78, with changes made in
+	gettext/build-aux/texi2html.
+	* doc/gperf.texi (EDITION): Remove variable. Use VERSION instead.
+	Use @copying command.
+	Tweak titlepage for printed output.
+	(Top): Enable for texi2html processing. Change node title. Move table of
+	contents into this node.
+	* doc/Makefile.in (TEXI2HTML): Use options -no-sec-nav -no-menu -toc-links.
+	(gperf.t2h.html): Renamed from gperf.html.
+	(gperf.html): New rule.
+	(gperf_toc.html): Pull out generated files out of subdirectory.
+
 2025-05-31  Bruno Haible  <bruno@clisp.org>
 
 	Mark automake 1.18 as supported.

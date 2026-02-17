@@ -1,6 +1,6 @@
 # Makefile for gperf/doc
 
-# Copyright (C) 1998, 2000, 2002-2003, 2006-2007, 2012, 2016, 2023-2024 Free Software Foundation, Inc.
+# Copyright (C) 1998, 2000, 2002-2003, 2006-2007, 2012, 2016, 2023-2024, 2026 Free Software Foundation, Inc.
 # Written by Douglas C. Schmidt <schmidt@ics.uci.edu>
 # and Bruno Haible <bruno@clisp.org>.
 #
@@ -49,7 +49,7 @@ TEXI2DVI = texi2dvi
 DVIPS = dvips -D600
 TEXI2PDF = texi2pdf
 MAKEINFO = LANG= LC_MESSAGES= LC_ALL= LANGUAGE= makeinfo -c CHECK_NORMAL_MENU_STRUCTURE=1
-TEXI2HTML = perl texi2html
+TEXI2HTML = perl texi2html -no-sec-nav -no-menu -toc-links
 TEXI2ANY = texi2any
 
 # Programs used by "make install":
@@ -95,17 +95,24 @@ $(srcdir)/gperf.pdf : $(srcdir)/gperf.texi $(srcdir)/gpl-3.0.texi
 	cd $(srcdir) && $(RM) gperf.aux gperf.toc gperf.cp gperf.fn gperf.ky gperf.pg gperf.tp gperf.vr gperf.log gperf.cps
 
 
-html : gperf.html gperf_toc.html
-
-# We still prefer texi2html over texi2any because it includes the titlepage.
+html : gperf.html gperf.t2h.html gperf_toc.html
 
 gperf.html : $(srcdir)/gperf.texi $(srcdir)/gpl-3.0.texi
-	cd $(srcdir) && $(TEXI2HTML) -number -monolithic gperf.texi
-#	cd $(srcdir) && $(TEXI2ANY) --html --no-headers --no-split gperf.texi
+	cd $(srcdir) && $(TEXI2ANY) --html --no-headers --no-split gperf.texi
+
+gperf.t2h.html : $(srcdir)/gperf.texi $(srcdir)/gpl-3.0.texi
+	cd $(srcdir) && $(TEXI2HTML) --output=gperf.t2h.html -number -monolithic gperf.texi
 
 gperf_toc.html : $(srcdir)/gperf.texi $(srcdir)/gpl-3.0.texi
 	cd $(srcdir) && $(RM) gperf_*.html
-	cd $(srcdir) && $(TEXI2HTML) -number -split_chapter gperf.texi
+	cd $(srcdir) \
+	  && $(TEXI2HTML) -number -split_chapter gperf.texi \
+	  && { mv gperf/gperf.html gperf_toc.html; \
+	       for file in gperf/*.html; do \
+	         sed -e 's/gperf\.html/gperf_toc.html/g' < $$file > `basename $$file` && rm -f $$file; \
+	       done; \
+	       rmdir gperf; \
+	     }
 
 gperf_0.html : $(srcdir)/gperf.texi $(srcdir)/gpl-3.0.texi
 	cd $(srcdir) && $(TEXI2ANY) --html --no-headers --split=chapter --no-node-files -o . gperf.texi

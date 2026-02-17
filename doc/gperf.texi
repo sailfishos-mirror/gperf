@@ -108,6 +108,11 @@ original English.
 @end ifnothtml
 @end titlepage
 
+@iftex
+@c Table of Contents
+@contents
+@end iftex
+
 @ifnottex
 @node Top
 @top GNU @code{gperf} @value{VERSION}
@@ -1507,10 +1512,5 @@ Foundation, 1989.
 @unnumbered Concept Index
 
 @printindex cp
-
-@iftex
-@c Table of Contents
-@contents
-@end iftex
 
 @bye

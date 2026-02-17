@@ -1,5 +1,11 @@
 2026-02-17  Bruno Haible  <bruno@clisp.org>
 
+	doc: Tweak printed output.
+	* doc/gperf.texi: In printed output, put the table of contents near the
+	beginning, not at the end.
+
+2026-02-17  Bruno Haible  <bruno@clisp.org>
+
 	doc: Use a version of texi2html which is under a good license.
 	* doc/texi2html: Copied from texi2html-1.78, with changes made in
 	gettext/build-aux/texi2html.

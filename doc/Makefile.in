@@ -139,7 +139,7 @@ install : all force
 #	$(MKINSTALLDIRS) $(DESTDIR)$(pdfdir)
 #	$(INSTALL_DATA) $(srcdir)/gperf.pdf $(DESTDIR)$(pdfdir)/gperf.pdf
 	$(MKINSTALLDIRS) $(DESTDIR)$(htmldir)
-	$(INSTALL_DATA) $(srcdir)/gperf.html $(DESTDIR)$(htmldir)/gperf.html
+	$(INSTALL_DATA) $(srcdir)/gperf.t2h.html $(DESTDIR)$(htmldir)/gperf.html
 
 installdirs : force
 	$(MKINSTALLDIRS) $(DESTDIR)$(infodir)
@@ -189,6 +189,7 @@ DISTRIBUTED_BUILT_FILES = \
   gperf.ps \
   gperf.pdf \
   gperf.html \
+  gperf.t2h.html \
   gperf_toc.html \
   gperf.1
 # Other distributed files, generated together with $(DISTRIBUTED_BUILT_FILES).
